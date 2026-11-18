@@ -134,8 +134,8 @@ main{position:relative;z-index:2}
 
   <!-- ==================== REGALOS ==================== -->
   <section class="gifts">
-    <h2 class="reveal">Y ahora… tus regalos</h2>
-    <p class="reveal">Toca cada caja para abrirla</p>
+    <h2 class="reveal" id="giftTitle">Y ahora… tus regalos</h2>
+    <p class="reveal" id="giftHint">Toca cada caja para abrirla</p>
     <div class="gift-row" id="gifts"></div>
     <div class="final" id="final"></div>
   </section>
@@ -194,10 +194,8 @@ const CONFIG = {
   firma: "Tuyo, Priyank",
 
   regalos: [
-    { emoji: "🗽", titulo: "Hasta la corona de la Libertad",
-      texto: "En Nueva York subiremos juntos los 162 escalones hasta la corona de la Estatua de la Libertad. Porque contigo quiero llegar siempre hasta arriba del todo." },
-    { emoji: "🍷", titulo: "Una cena solo para los dos",
-      texto: "Una noche sin prisas, buena comida, mejor compañía y todas las risas que quepan en la mesa. Tú eliges el día; yo me encargo del resto." },
+    { emoji: "⭐", titulo: "Una cena con estrella Michelin",
+      texto: "Tú y yo, un restaurante con estrella Michelin y una noche sin prisas: plato a plato, brindis a brindis, risa a risa. Ponte guapa (aunque ya lo eres). Tú eliges el día; yo me encargo del resto." },
   ],
   fraseFinal: "Que nunca nos falten motivos para sonreír. Te quiero ♥",
 };
@@ -234,10 +232,15 @@ document.getElementById("letter").innerHTML =
 
 // --- Regalos ---
 let opened = 0;
+const single = CONFIG.regalos.length === 1;
+if (single) {
+  document.getElementById("giftTitle").textContent = "Y ahora… tu regalo";
+  document.getElementById("giftHint").textContent = "Toca la caja para abrirla";
+}
 document.getElementById("gifts").innerHTML = CONFIG.regalos.map((g,i) => `
   <div class="gift reveal" onclick="openGift(this,event)">
     <div class="box"><div class="bow">🎀</div><div class="lid"></div><div class="base"></div></div>
-    <div class="label">Regalo ${i+1}</div>
+    <div class="label">${single ? "Para ti" : "Regalo " + (i+1)}</div>
     <div class="content"><div class="card"><div class="emoji">${g.emoji}</div><h3>${esc(g.titulo)}</h3><p>${esc(g.texto)}</p></div></div>
   </div>`).join("");
 
