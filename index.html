@@ -97,9 +97,41 @@ main{position:relative;z-index:2}
 .final.in{opacity:1}
 
 /* ---------- Visor ---------- */
-#viewer{position:fixed;inset:0;background:rgba(20,10,12,.92);z-index:60;display:none;align-items:center;justify-content:center;padding:16px}
+#viewer{position:fixed;inset:0;background:rgba(20,10,12,.94);z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px}
 #viewer.on{display:flex}
-#viewer img{max-width:100%;max-height:100%;border-radius:4px}
+#viewer img{max-width:100%;max-height:82vh;border-radius:4px;user-select:none}
+#viewer .cap{font-family:"Caveat",cursive;color:#fff;font-size:26px;min-height:32px}
+#viewer .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);color:#fff;border:0;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer}
+#viewer .prev{left:10px} #viewer .next{right:10px}
+#viewer .close{position:absolute;top:12px;right:14px;background:none;border:0;color:#fff;font-size:30px;cursor:pointer}
+
+/* ---------- Barra de progreso ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--rose),var(--wine));z-index:40}
+
+/* ---------- Contador vivo ---------- */
+.counter b{font-variant-numeric:tabular-nums}
+
+/* ---------- Motivos para sonreír ---------- */
+.reasons{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;max-width:760px;margin:0 auto}
+.flip{perspective:800px;height:150px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.flip .inner{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}
+.flip.on .inner{transform:rotateY(180deg)}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;box-shadow:var(--shadow)}
+.flip .front{background:var(--wine);color:#fff;flex-direction:column;gap:4px}
+.flip .front b{font-family:"Caveat",cursive;font-size:42px;line-height:1}
+.flip .front span{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.flip .back{background:var(--paper);transform:rotateY(180deg);font-family:"Caveat",cursive;font-size:22px;line-height:1.15;color:var(--ink)}
+
+/* ---------- Carta: cursor de máquina ---------- */
+.letter .typing::after{content:"|";color:var(--wine);animation:blink .8s infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- Foto final ---------- */
+.ending{display:none;margin:40px auto 0;max-width:340px}
+.ending.in{display:block;animation:fadeup 1.4s ease both}
+@keyframes fadeup{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.beat{display:inline-block;animation:beat 1.2s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
 .confetti{position:fixed;z-index:70;pointer-events:none;font-size:22px;animation:burst 1.6s ease-out forwards}
 @keyframes burst{to{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;translate:0 0}}
@@ -127,6 +159,15 @@ main{position:relative;z-index:2}
   <!-- ==================== CAPÍTULOS (se generan desde CONFIG) ==================== -->
   <div id="chapters"></div>
 
+  <!-- ==================== MOTIVOS ==================== -->
+  <div class="divider">♥ ♥ ♥</div>
+  <section class="chapter">
+    <h2 class="reveal">Motivos para sonreír</h2>
+    <div class="date reveal">toca cada tarjeta</div>
+    <p class="quote reveal">“Para que nunca nos falten… aquí tienes unos cuantos.”</p>
+    <div class="reasons" id="reasons"></div>
+  </section>
+
   <!-- ==================== CARTA ==================== -->
   <section class="chapter">
     <div class="letter reveal" id="letter"></div>
@@ -138,21 +179,32 @@ main{position:relative;z-index:2}
     <p class="reveal" id="giftHint">Toca cada caja para abrirla</p>
     <div class="gift-row" id="gifts"></div>
     <div class="final" id="final"></div>
+    <figure class="polaroid ending" id="ending">
+      <img src="fotos/190.jpg" alt="nosotros" loading="lazy">
+      <figcaption>y lo que nos queda… <span class="beat">♥</span></figcaption>
+    </figure>
   </section>
 </main>
 
-<div id="viewer" onclick="this.classList.remove('on')"><img alt=""></div>
+<div id="progress"></div>
+<div id="viewer">
+  <button class="close" aria-label="Cerrar">×</button>
+  <button class="nav prev" aria-label="Anterior">‹</button>
+  <img alt="">
+  <div class="cap"></div>
+  <button class="nav next" aria-label="Siguiente">›</button>
+</div>
 
 <script>
 /* =====================================================================
    CONFIG — edita aquí textos, fechas y regalos. No hace falta tocar nada más.
    ===================================================================== */
 const CONFIG = {
-  inicio: "2026-09-21",          // fecha desde la que cuenta el contador (vuestra primera foto)
-  textoContador: "juntos desde el 21 de septiembre",
+  inicio: "2026-09-19",          // el día que empezó todo
+  textoContador: "juntos desde el 19 de septiembre de 2026",
 
   capitulos: [
-    { titulo: "Donde empezó todo", fecha: "21 de septiembre",
+    { titulo: "Donde empezó todo", fecha: "19 de septiembre",
       frase: "Un día nos dijimos: «paremos ahora, para encontrarnos en el futuro». Y el futuro llegó… y nos encontró juntos.",
       fotos: [["001.jpg","la primera de muchas"]] },
 
@@ -185,6 +237,17 @@ const CONFIG = {
       fotos: [["153.jpg","domingo perfecto"],["160.jpg",""],["174.jpg","preciosa"],["183.jpg","así te quiero"],["186.jpg",""],["190.jpg","nosotros, siempre",1]] },
   ],
 
+  motivos: [
+    "Tu risa cuando no puedes parar de reír",
+    "Esa cara de golosa delante de un postre",
+    "Cómo bailas aunque nadie más baile",
+    "Que conmigo hasta subir montañas parezca fácil",
+    "Tus abrazos de domingo en el sofá",
+    "Que siempre encuentras el mejor ángulo para la foto del espejo",
+    "Que con una mirada ya sé lo que piensas",
+    "Que el futuro que dijimos… ya es nuestro presente",
+  ],
+
   carta: [
     "Beatriz:",
     "Gracias por cada plan, cada risa y cada tontería compartida. Gracias por hacer que los días normales se conviertan en días especiales.",
@@ -205,10 +268,19 @@ const CONFIG = {
 
 // --- Contador ---
 (function(){
-  const d = Math.floor((Date.now() - new Date(CONFIG.inicio+"T00:00:00")) / 864e5);
   const el = document.getElementById("counter");
-  el.innerHTML = `<div><b>${d}</b><span>días</span></div><div><b>${Math.floor(d/7)}</b><span>semanas</span></div><div><b>∞</b><span>sonrisas</span></div>`;
+  const t0 = new Date(CONFIG.inicio + "T00:00:00").getTime();
+  el.innerHTML = ["días","horas","minutos","segundos"].map(u => `<div><b data-u="${u}">0</b><span>${u}</span></div>`).join("");
   el.insertAdjacentHTML("afterend", `<p style="color:var(--soft);margin-top:12px">${CONFIG.textoContador}</p>`);
+  const b = Object.fromEntries([...el.querySelectorAll("b")].map(x => [x.dataset.u, x]));
+  const tick = () => {
+    let s = Math.max(0, Math.floor((Date.now() - t0) / 1000));
+    b["días"].textContent = Math.floor(s / 86400);
+    b["horas"].textContent = String(Math.floor(s % 86400 / 3600)).padStart(2, "0");
+    b["minutos"].textContent = String(Math.floor(s % 3600 / 60)).padStart(2, "0");
+    b["segundos"].textContent = String(s % 60).padStart(2, "0");
+  };
+  tick(); setInterval(tick, 1000);
 })();
 
 // --- Capítulos ---
@@ -228,9 +300,36 @@ document.getElementById("chapters").innerHTML = CONFIG.capitulos.map((c,i) => `
     </div>
   </section>`).join("");
 
-// --- Carta ---
-document.getElementById("letter").innerHTML =
-  CONFIG.carta.map(p => `<p>${esc(p)}</p>`).join("") + `<p class="sign">${esc(CONFIG.firma)}</p>`;
+// --- Motivos (tarjetas que giran) ---
+document.getElementById("reasons").innerHTML = CONFIG.motivos.map((m,i) => `
+  <div class="flip reveal" onclick="this.classList.toggle('on')">
+    <div class="inner">
+      <div class="face front"><b>${i+1}</b><span>motivo</span></div>
+      <div class="face back">${esc(m)}</div>
+    </div>
+  </div>`).join("");
+
+// --- Carta (se escribe sola al llegar) ---
+const letterEl = document.getElementById("letter");
+const letterParts = [...CONFIG.carta.map(t => ({t, cls:""})), {t: CONFIG.firma, cls:"sign"}];
+letterEl.innerHTML = letterParts.map(p => `<p class="${p.cls}" style="visibility:hidden">${esc(p.t)}</p>`).join("");
+let letterDone = false;
+function typeLetter(){
+  if (letterDone) return; letterDone = true;
+  const ps = [...letterEl.querySelectorAll("p")];
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { ps.forEach(p => p.style.visibility = ""); return; }
+  let i = 0;
+  (function next(){
+    if (i >= ps.length) return;
+    const p = ps[i++], full = p.textContent; p.textContent = ""; p.style.visibility = ""; p.classList.add("typing");
+    let k = 0;
+    const iv = setInterval(() => {
+      p.textContent = full.slice(0, ++k);
+      if (k >= full.length) { clearInterval(iv); p.classList.remove("typing"); setTimeout(next, 350); }
+    }, 32);
+  })();
+}
+new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { typeLetter(); o.disconnect(); } }), {threshold:.3}).observe(letterEl);
 
 // --- Regalos ---
 let opened = 0;
@@ -253,7 +352,11 @@ function openGift(el, e){
   if (++opened === CONFIG.regalos.length) {
     const f = document.getElementById("final");
     f.textContent = CONFIG.fraseFinal;
-    setTimeout(() => { f.classList.add("in"); f.scrollIntoView({behavior:"smooth", block:"center"}); burst(innerWidth/2, innerHeight/2); }, 1600);
+    setTimeout(() => {
+      f.classList.add("in"); document.getElementById("ending").classList.add("in");
+      f.scrollIntoView({behavior:"smooth", block:"start"});
+      burst(innerWidth/2, innerHeight/2); setTimeout(() => burst(innerWidth/2, innerHeight/3), 600);
+    }, 1600);
   }
 }
 function burst(x, y){
@@ -271,8 +374,11 @@ function burst(x, y){
 }
 
 // --- Portada / corazones / scroll reveal / visor ---
+let started = false;
 function start(){
+  if (started) return; started = true;
   document.getElementById("cover").classList.add("gone");
+  burst(innerWidth/2, innerHeight/2);
   setInterval(() => {
     const h = document.createElement("div");
     h.className = "heart-fly"; h.textContent = "♥";
@@ -284,10 +390,39 @@ function start(){
 }
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.15});
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+// Barra de progreso
+const bar = document.getElementById("progress");
+addEventListener("scroll", () => {
+  const h = document.documentElement.scrollHeight - innerHeight;
+  bar.style.width = (h > 0 ? scrollY / h * 100 : 0) + "%";
+}, {passive:true});
+
+// Visor de fotos con flechas y deslizar
+const viewer = document.getElementById("viewer"), vImg = viewer.querySelector("img"), vCap = viewer.querySelector(".cap");
+const gallery = [...document.querySelectorAll("#chapters .polaroid")].map(f => ({src: f.querySelector("img").src, cap: f.querySelector("figcaption").textContent}));
+let cur = 0;
+function show(i){ cur = (i + gallery.length) % gallery.length; vImg.src = gallery[cur].src; vCap.textContent = gallery[cur].cap; }
 document.addEventListener("click", e => {
-  if (e.target.matches(".polaroid img")) {
-    const v = document.getElementById("viewer"); v.querySelector("img").src = e.target.src; v.classList.add("on");
+  if (e.target.matches("#chapters .polaroid img")) {
+    show(gallery.findIndex(g => g.src === e.target.src)); viewer.classList.add("on");
   }
+});
+viewer.querySelector(".prev").onclick = e => { e.stopPropagation(); show(cur - 1); };
+viewer.querySelector(".next").onclick = e => { e.stopPropagation(); show(cur + 1); };
+viewer.querySelector(".close").onclick = () => viewer.classList.remove("on");
+viewer.addEventListener("click", e => { if (e.target === viewer) viewer.classList.remove("on"); });
+addEventListener("keydown", e => {
+  if (!viewer.classList.contains("on")) return;
+  if (e.key === "ArrowLeft") show(cur - 1);
+  if (e.key === "ArrowRight") show(cur + 1);
+  if (e.key === "Escape") viewer.classList.remove("on");
+});
+let tx = null;
+viewer.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, {passive:true});
+viewer.addEventListener("touchend", e => {
+  if (tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx; tx = null;
+  if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
 });
 </script>
 </body>
