@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Para Beatriz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf5ef; --ink:#3a2326; --soft:#8a6a6d; --wine:#7a1f2e; --rose:#e8b4b8; --paper:#fffdf9;
+  --shadow:0 10px 30px rgba(58,35,38,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;font-size:20px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.hand{font-family:"Caveat",cursive}
+
+/* ---------- Portada ---------- */
+#cover{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;
+  background:radial-gradient(circle at 50% 40%,#fff 0%,var(--bg) 60%,#f3e3dc 100%);transition:opacity 1s ease, visibility 1s}
+#cover.gone{opacity:0;visibility:hidden}
+.envelope{position:relative;width:220px;height:150px;background:var(--wine);border-radius:6px;box-shadow:var(--shadow);cursor:pointer;animation:float 3s ease-in-out infinite}
+.envelope::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 49.5%,#5e1623 50%) left/50% 100% no-repeat,linear-gradient(225deg,transparent 49.5%,#5e1623 50%) right/50% 100% no-repeat;border-radius:6px}
+.envelope .seal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:#c9a24a;display:grid;place-items:center;font-size:26px;color:var(--wine);box-shadow:0 2px 6px rgba(0,0,0,.3)}
+@keyframes float{50%{transform:translateY(-8px)}}
+#cover h1{font-weight:400;font-size:clamp(34px,8vw,52px);font-style:italic}
+#cover p{color:var(--soft)}
+.btn{font:inherit;font-size:20px;border:0;border-radius:999px;padding:12px 30px;background:var(--wine);color:#fff;cursor:pointer;box-shadow:var(--shadow)}
+
+/* ---------- Corazones de fondo ---------- */
+.heart-fly{position:fixed;bottom:-30px;pointer-events:none;z-index:1;color:var(--rose);animation:rise linear forwards;opacity:.8}
+@keyframes rise{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+
+/* ---------- Hero ---------- */
+main{position:relative;z-index:2}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 16px}
+.hero .hand{font-size:clamp(46px,12vw,84px);color:var(--wine);line-height:1}
+.hero p{max-width:520px;margin-top:18px;font-size:22px}
+.counter{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.counter div{background:var(--paper);border-radius:14px;padding:12px 16px;min-width:82px;box-shadow:var(--shadow)}
+.counter b{display:block;font-size:30px;color:var(--wine);font-weight:600}
+.counter span{font-size:14px;color:var(--soft);text-transform:uppercase;letter-spacing:.1em}
+.scroll-hint{margin-top:40px;color:var(--soft);font-size:16px;animation:bob 1.6s infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+
+/* ---------- Capítulos ---------- */
+.chapter{max-width:980px;margin:0 auto;padding:70px 16px}
+.chapter h2{font-family:"Caveat",cursive;font-size:clamp(38px,9vw,56px);color:var(--wine);text-align:center;font-weight:700;line-height:1.1}
+.chapter .date{text-align:center;color:var(--soft);font-size:16px;letter-spacing:.15em;text-transform:uppercase;margin-top:6px}
+.chapter .quote{max-width:620px;margin:22px auto 34px;text-align:center;font-size:23px;font-style:italic}
+.photos{display:flex;flex-wrap:wrap;justify-content:center;gap:22px}
+.polaroid{background:var(--paper);padding:10px 10px 44px;box-shadow:var(--shadow);width:min(300px,80vw);position:relative;transition:transform .4s}
+.polaroid:nth-child(odd){transform:rotate(-2.5deg)}
+.polaroid:nth-child(even){transform:rotate(2deg)}
+.polaroid:hover{transform:rotate(0) scale(1.03)}
+.polaroid img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#eee;cursor:zoom-in}
+.polaroid figcaption{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-family:"Caveat",cursive;font-size:24px;color:var(--ink)}
+.polaroid.wide{width:min(420px,88vw)}
+.polaroid.wide img{aspect-ratio:4/3}
+.reveal{opacity:0;translate:0 40px;transition:opacity 1s ease, translate 1s ease}
+.reveal.in{opacity:1;translate:0 0}
+.divider{text-align:center;color:var(--rose);font-size:26px;letter-spacing:12px}
+
+/* ---------- Carta ---------- */
+.letter{max-width:640px;margin:40px auto;padding:40px 28px;background:var(--paper);box-shadow:var(--shadow);border-radius:4px;position:relative}
+.letter::before{content:"";position:absolute;top:-12px;left:50%;width:110px;height:26px;transform:translateX(-50%) rotate(-3deg);background:rgba(232,180,184,.7)}
+.letter p{font-family:"Caveat",cursive;font-size:27px;line-height:1.35;margin-bottom:14px}
+.letter .sign{text-align:right;color:var(--wine)}
+
+/* ---------- Regalos ---------- */
+.gifts{padding:80px 16px 120px;text-align:center}
+.gifts h2{font-family:"Caveat",cursive;font-size:clamp(42px,10vw,64px);color:var(--wine)}
+.gifts > p{color:var(--soft);margin-top:6px}
+.gift-row{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-top:50px}
+.gift{width:min(280px,82vw);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.box{position:relative;height:190px;margin:0 auto;width:190px}
+.box .base{position:absolute;bottom:0;left:10px;right:10px;height:130px;background:var(--wine);border-radius:4px;box-shadow:var(--shadow)}
+.box .base::after,.box .lid::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:26px;transform:translateX(-50%);background:#c9a24a}
+.box .lid{position:absolute;top:44px;left:0;right:0;height:38px;background:#93283a;border-radius:4px;transition:transform .9s cubic-bezier(.3,1.6,.5,1),opacity .9s;z-index:2}
+.box .bow{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:44px;z-index:3;transition:transform .9s cubic-bezier(.3,1.6,.5,1),opacity .9s}
+.gift:not(.open) .box{animation:wiggle 2.4s infinite}
+.gift:nth-child(2):not(.open) .box{animation-delay:1.2s}
+@keyframes wiggle{0%,80%,100%{transform:rotate(0)}84%{transform:rotate(-5deg)}88%{transform:rotate(5deg)}92%{transform:rotate(-3deg)}96%{transform:rotate(2deg)}}
+.gift.open .lid{transform:translateY(-120px) rotate(-25deg);opacity:0}
+.gift.open .bow{transform:translate(-50%,-150px) rotate(40deg);opacity:0}
+.gift .label{margin-top:14px;font-family:"Caveat",cursive;font-size:30px}
+.gift .content{max-height:0;opacity:0;overflow:hidden;transition:max-height 1s ease .4s,opacity 1s ease .5s}
+.gift.open .content{max-height:600px;opacity:1}
+.card{margin-top:16px;background:var(--paper);padding:22px 18px;border-radius:12px;box-shadow:var(--shadow)}
+.card .emoji{font-size:48px}
+.card h3{font-size:28px;color:var(--wine);font-weight:600;margin-top:6px}
+.card p{font-size:19px;margin-top:6px}
+.final{margin-top:70px;font-family:"Caveat",cursive;font-size:clamp(40px,10vw,60px);color:var(--wine);opacity:0;transition:opacity 1.5s}
+.final.in{opacity:1}
+
+/* ---------- Visor ---------- */
+#viewer{position:fixed;inset:0;background:rgba(20,10,12,.92);z-index:60;display:none;align-items:center;justify-content:center;padding:16px}
+#viewer.on{display:flex}
+#viewer img{max-width:100%;max-height:100%;border-radius:4px}
+.confetti{position:fixed;z-index:70;pointer-events:none;font-size:22px;animation:burst 1.6s ease-out forwards}
+@keyframes burst{to{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;translate:0 0}}
+</style>
+</head>
+<body>
+
+<!-- ==================== PORTADA ==================== -->
+<section id="cover">
+  <div class="envelope" onclick="start()"><div class="seal">♥</div></div>
+  <h1>Beatriz, tengo algo para ti</h1>
+  <p>Ponte cómoda, sube el brillo y abre con calma…</p>
+  <button class="btn" onclick="start()">Ábrelo</button>
+</section>
+
+<main>
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="hand">Para ti, Beatriz</div>
+    <p>Una pequeña colección de momentos que me hacen sonreír cada vez que los recuerdo. Todos tienen algo en común: tú.</p>
+    <div class="counter" id="counter"></div>
+    <div class="scroll-hint">desliza hacia abajo ↓</div>
+  </section>
+
+  <!-- ==================== CAPÍTULOS (se generan desde CONFIG) ==================== -->
+  <div id="chapters"></div>
+
+  <!-- ==================== CARTA ==================== -->
+  <section class="chapter">
+    <div class="letter reveal" id="letter"></div>
+  </section>
+
+  <!-- ==================== REGALOS ==================== -->
+  <section class="gifts">
+    <h2 class="reveal">Y ahora… tus regalos</h2>
+    <p class="reveal">Toca cada caja para abrirla</p>
+    <div class="gift-row" id="gifts"></div>
+    <div class="final" id="final"></div>
+  </section>
+</main>
+
+<div id="viewer" onclick="this.classList.remove('on')"><img alt=""></div>
+
+<script>
+/* =====================================================================
+   CONFIG — edita aquí textos, fechas y regalos. No hace falta tocar nada más.
+   ===================================================================== */
+const CONFIG = {
+  inicio: "2026-09-21",          // fecha desde la que cuenta el contador (vuestra primera foto)
+  textoContador: "juntos desde el 21 de septiembre",
+
+  capitulos: [
+    { titulo: "Donde empezó todo", fecha: "21 de septiembre",
+      frase: "No sabía que esa noche iba a ser el principio de mi historia favorita.",
+      fotos: [["001.jpg","la primera de muchas"]] },
+
+    { titulo: "Murcia, tú y yo", fecha: "1 y 2 de octubre",
+      frase: "Contigo cualquier mesa, cualquier calle y cualquier cerveza se convierte en un buen recuerdo.",
+      fotos: [["004.jpg","nuestra ciudad",1],["017.jpg","esa sonrisa"],["016.jpg","felices"],["019.jpg","la catedral nos miraba"]] },
+
+    { titulo: "Nuestra primera aventura", fecha: "3 de octubre",
+      frase: "Mar, viento, un faro… y yo solo podía mirarte a ti.",
+      fotos: [["021.jpg","beso robado",1],["041.jpg","exploradores"],["045.jpg","el faro"],["051.jpg","",1],["056.jpg","mi persona favorita"],["059.jpg","abrazo con brillo",1]] },
+
+    { titulo: "Tu manera de brillar", fecha: "octubre",
+      frase: "Eres preciosa, pero lo que más me gusta es cómo haces que todo sea más bonito a tu alrededor.",
+      fotos: [["064.jpg","guapa"],["068.jpg","mis payasos favoritos"],["074.jpg","el espejo de siempre"]] },
+
+    { titulo: "Subir montañas contigo", fecha: "12 de octubre",
+      frase: "Las vistas eran increíbles, pero la mejor estaba a mi lado.",
+      fotos: [["084.jpg","",1],["089.jpg","arriba del todo",1]] },
+
+    { titulo: "Días que no quiero olvidar", fecha: "19 de octubre",
+      frase: "Bailar, reír, comer dulces y perdernos por la ciudad: mi plan perfecto lleva tu nombre.",
+      fotos: [["097.jpg","golosa"],["110.jpg","postal"],["116.jpg","¡a bailar!"],["123.jpg","tu risa"]] },
+
+    { titulo: "Sol, playa y tú", fecha: "25 oct · 2 nov",
+      frase: "Contigo hasta el invierno parece verano.",
+      fotos: [["137.jpg","nosotros"],["140.jpg","mi lugar feliz",1]] },
+
+    { titulo: "Lo que viene", fecha: "15 de noviembre",
+      frase: "Si los primeros meses han sido así, no me imagino lo bonito que será todo lo demás.",
+      fotos: [["153.jpg","domingo perfecto"],["160.jpg",""],["174.jpg","preciosa"],["183.jpg","así te quiero"],["186.jpg",""],["190.jpg","nosotros, siempre",1]] },
+  ],
+
+  carta: [
+    "Beatriz:",
+    "Gracias por cada plan, cada risa y cada tontería compartida. Gracias por hacer que los días normales se conviertan en días especiales.",
+    "Esta página es solo una pequeña parte de todo lo que me haces sentir. Lo demás no cabe en ninguna foto.",
+  ],
+  firma: "Tuyo, Priyank",
+
+  regalos: [
+    { emoji: "🎁", titulo: "REGALO 1", texto: "Escribe aquí la descripción del primer regalo." },
+    { emoji: "💝", titulo: "REGALO 2", texto: "Escribe aquí la descripción del segundo regalo." },
+  ],
+  fraseFinal: "Te quiero ♥",
+};
+/* ===================================================================== */
+
+// --- Contador ---
+(function(){
+  const d = Math.floor((Date.now() - new Date(CONFIG.inicio+"T00:00:00")) / 864e5);
+  const el = document.getElementById("counter");
+  el.innerHTML = `<div><b>${d}</b><span>días</span></div><div><b>${Math.floor(d/7)}</b><span>semanas</span></div><div><b>∞</b><span>sonrisas</span></div>`;
+  el.insertAdjacentHTML("afterend", `<p style="color:var(--soft);margin-top:12px">${CONFIG.textoContador}</p>`);
+})();
+
+// --- Capítulos ---
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+document.getElementById("chapters").innerHTML = CONFIG.capitulos.map((c,i) => `
+  ${i ? '<div class="divider">♥ ♥ ♥</div>' : ''}
+  <section class="chapter">
+    <h2 class="reveal">${esc(c.titulo)}</h2>
+    <div class="date reveal">${esc(c.fecha)}</div>
+    <p class="quote reveal">“${esc(c.frase)}”</p>
+    <div class="photos">
+      ${c.fotos.map(([f,cap,wide]) => `
+        <figure class="polaroid reveal${wide?' wide':''}">
+          <img src="fotos/${f}" loading="lazy" alt="${esc(cap||'nosotros')}">
+          <figcaption>${esc(cap)}</figcaption>
+        </figure>`).join("")}
+    </div>
+  </section>`).join("");
+
+// --- Carta ---
+document.getElementById("letter").innerHTML =
+  CONFIG.carta.map(p => `<p>${esc(p)}</p>`).join("") + `<p class="sign">${esc(CONFIG.firma)}</p>`;
+
+// --- Regalos ---
+let opened = 0;
+document.getElementById("gifts").innerHTML = CONFIG.regalos.map((g,i) => `
+  <div class="gift reveal" onclick="openGift(this,event)">
+    <div class="box"><div class="bow">🎀</div><div class="lid"></div><div class="base"></div></div>
+    <div class="label">Regalo ${i+1}</div>
+    <div class="content"><div class="card"><div class="emoji">${g.emoji}</div><h3>${esc(g.titulo)}</h3><p>${esc(g.texto)}</p></div></div>
+  </div>`).join("");
+
+function openGift(el, e){
+  if (el.classList.contains("open")) return;
+  el.classList.add("open");
+  burst(e.clientX, e.clientY);
+  if (++opened === CONFIG.regalos.length) {
+    const f = document.getElementById("final");
+    f.textContent = CONFIG.fraseFinal;
+    setTimeout(() => { f.classList.add("in"); f.scrollIntoView({behavior:"smooth", block:"center"}); burst(innerWidth/2, innerHeight/2); }, 1600);
+  }
+}
+function burst(x, y){
+  const items = ["❤️","💖","✨","🌸","💕"];
+  for (let i = 0; i < 28; i++) {
+    const s = document.createElement("span");
+    s.className = "confetti"; s.textContent = items[i % items.length];
+    const a = Math.random()*Math.PI*2, r = 80 + Math.random()*160;
+    s.style.left = x+"px"; s.style.top = y+"px";
+    s.style.setProperty("--dx", Math.cos(a)*r+"px");
+    s.style.setProperty("--dy", Math.sin(a)*r - 60 +"px");
+    s.style.setProperty("--r", (Math.random()*360)+"deg");
+    document.body.appendChild(s); setTimeout(() => s.remove(), 1700);
+  }
+}
+
+// --- Portada / corazones / scroll reveal / visor ---
+function start(){
+  document.getElementById("cover").classList.add("gone");
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart-fly"; h.textContent = "♥";
+    h.style.left = Math.random()*100 + "vw";
+    h.style.fontSize = 12 + Math.random()*18 + "px";
+    h.style.animationDuration = 7 + Math.random()*6 + "s";
+    document.body.appendChild(h); setTimeout(() => h.remove(), 14000);
+  }, 900);
+}
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.15});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+document.addEventListener("click", e => {
+  if (e.target.matches(".polaroid img")) {
+    const v = document.getElementById("viewer"); v.querySelector("img").src = e.target.src; v.classList.add("on");
+  }
+});
+</script>
+</body>
+</html>
