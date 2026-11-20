@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Para Beatriz</title>
+<meta name="theme-color" content="#7a1f2e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%92%8C%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
@@ -74,7 +76,7 @@ main{position:relative;z-index:2}
 .gifts{padding:80px 16px 120px;text-align:center}
 .gifts h2{font-family:"Caveat",cursive;font-size:clamp(42px,10vw,64px);color:var(--wine)}
 .gifts > p{color:var(--soft);margin-top:6px}
-.gift-row{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-top:50px}
+.gift-row{display:flex;gap:46px 34px;justify-content:center;flex-wrap:wrap;margin:50px auto 0;max-width:700px}
 .gift{width:min(280px,82vw);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .box{position:relative;height:190px;margin:0 auto;width:190px}
 .box .base{position:absolute;bottom:0;left:10px;right:10px;height:130px;background:var(--wine);border-radius:4px;box-shadow:var(--shadow)}
@@ -82,14 +84,16 @@ main{position:relative;z-index:2}
 .box .lid{position:absolute;top:44px;left:0;right:0;height:38px;background:#93283a;border-radius:4px;transition:transform .9s cubic-bezier(.3,1.6,.5,1),opacity .9s;z-index:2}
 .box .bow{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:44px;z-index:3;transition:transform .9s cubic-bezier(.3,1.6,.5,1),opacity .9s}
 .gift:not(.open) .box{animation:wiggle 2.4s infinite}
-.gift:nth-child(2):not(.open) .box{animation-delay:1.2s}
+.gift:nth-child(2):not(.open) .box{animation-delay:.6s}
+.gift:nth-child(3):not(.open) .box{animation-delay:1.2s}
+.gift:nth-child(4):not(.open) .box{animation-delay:1.8s}
 @keyframes wiggle{0%,80%,100%{transform:rotate(0)}84%{transform:rotate(-5deg)}88%{transform:rotate(5deg)}92%{transform:rotate(-3deg)}96%{transform:rotate(2deg)}}
 .gift.open .lid{transform:translateY(-120px) rotate(-25deg);opacity:0}
 .gift.open .bow{transform:translate(-50%,-150px) rotate(40deg);opacity:0}
 .gift .label{margin-top:14px;font-family:"Caveat",cursive;font-size:30px}
 .gift .content{max-height:0;opacity:0;overflow:hidden;transition:max-height 1s ease .4s,opacity 1s ease .5s}
 .gift.open .content{max-height:600px;opacity:1}
-.card{margin-top:16px;background:var(--paper);padding:22px 18px;border-radius:12px;box-shadow:var(--shadow)}
+.card{margin-top:16px;border:1px solid rgba(201,162,74,.35);background:var(--paper);padding:22px 18px;border-radius:12px;box-shadow:var(--shadow)}
 .card .emoji{font-size:48px}
 .card h3{font-size:28px;color:var(--wine);font-weight:600;margin-top:6px}
 .card p{font-size:19px;margin-top:6px}
@@ -233,8 +237,8 @@ main{position:relative;z-index:2}
 
   <!-- ==================== REGALOS ==================== -->
   <section class="gifts">
-    <h2 class="reveal" id="giftTitle">Y ahora… tus regalos</h2>
-    <p class="reveal" id="giftHint">Toca cada caja para abrirla</p>
+    <h2 class="reveal" id="giftTitle">Dos meses juntos… y tus regalos</h2>
+    <p class="reveal" id="giftHint">Feliz aniversario ♥ Toca cada caja para abrirla</p>
     <div class="gift-row" id="gifts"></div>
     <div class="final" id="final"></div>
     <figure class="polaroid ending" id="ending">
@@ -398,7 +402,7 @@ new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { ty
 let opened = 0;
 const single = CONFIG.regalos.length === 1;
 if (single) {
-  document.getElementById("giftTitle").textContent = "Y ahora… tu regalo";
+  document.getElementById("giftTitle").textContent = "Dos meses juntos… y tu regalo";
   document.getElementById("giftHint").textContent = "Toca la caja para abrirla";
 }
 document.getElementById("gifts").innerHTML = CONFIG.regalos.map((g,i) => `
