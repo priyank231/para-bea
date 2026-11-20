@@ -167,11 +167,11 @@ main{position:relative;z-index:2}
 
   <div class="step" data-s="1">
     <h2>PREGUNTA 1 / 2</h2>
-    <p>¿Cuál es el mejor plan del mundo?</p>
+    <p>¿Qué prefieres: a mí o el chocolate?</p>
     <div class="opts">
-      <button class="pbtn alt" onclick="q1()">🍝 Comer</button>
-      <button class="pbtn alt" onclick="q1()">🍕 Comer otra vez</button>
-      <button class="pbtn alt" onclick="q1()">🍰 El postre</button>
+      <button class="pbtn alt" onclick="q1()">😘 A ti, claro</button>
+      <button class="pbtn alt" onclick="q1()">🍫 El chocolate</button>
+      <button class="pbtn alt" onclick="q1()">🍫😘 A ti… con chocolate</button>
     </div>
     <div class="ok" id="q1ok"></div>
   </div>
@@ -441,7 +441,7 @@ function pstep(n){
   if (n === 3) loadFake();
 }
 function q1(){
-  document.getElementById("q1ok").textContent = "✔ Correcto. Las tres eran correctas, te conozco 😏";
+  document.getElementById("q1ok").textContent = "✔ Respuesta aceptada. Las tres valen, pero sé cuál has pensado 😏";
   setTimeout(() => pstep(2), 1800);
 }
 let dodges = 0;
