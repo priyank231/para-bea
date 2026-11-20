@@ -87,12 +87,14 @@ main{position:relative;z-index:2}
 .gift:nth-child(2):not(.open) .box{animation-delay:.6s}
 .gift:nth-child(3):not(.open) .box{animation-delay:1.2s}
 .gift:nth-child(4):not(.open) .box{animation-delay:1.8s}
+.gift:nth-child(5):not(.open) .box{animation-delay:2.4s}
 @keyframes wiggle{0%,80%,100%{transform:rotate(0)}84%{transform:rotate(-5deg)}88%{transform:rotate(5deg)}92%{transform:rotate(-3deg)}96%{transform:rotate(2deg)}}
 .gift.open .lid{transform:translateY(-120px) rotate(-25deg);opacity:0}
 .gift.open .bow{transform:translate(-50%,-150px) rotate(40deg);opacity:0}
 .gift .label{margin-top:14px;font-family:"Caveat",cursive;font-size:30px}
 .gift .content{max-height:0;opacity:0;overflow:hidden;transition:max-height 1s ease .4s,opacity 1s ease .5s}
 .gift.open .content{max-height:600px;opacity:1}
+.card .glink{display:inline-block;margin-top:14px;padding:10px 18px;border-radius:999px;background:var(--wine);color:#fff;text-decoration:none;font-weight:600}
 .card{margin-top:16px;border:1px solid rgba(201,162,74,.35);background:var(--paper);padding:22px 18px;border-radius:12px;box-shadow:var(--shadow)}
 .card .emoji{font-size:48px}
 .card h3{font-size:28px;color:var(--wine);font-weight:600;margin-top:6px}
@@ -287,8 +289,8 @@ const CONFIG = {
       fotos: [["084.jpg","",1],["089.jpg","arriba del todo",1]] },
 
     { titulo: "Días que no quiero olvidar", fecha: "19 de octubre",
-      frase: "Bailar, reír, comer dulces y perdernos por la ciudad: mi plan perfecto lleva tu nombre.",
-      fotos: [["097.jpg","golosa"],["110.jpg","postal"],["116.jpg","¡a bailar!"],["123.jpg","tu risa"]] },
+      frase: "Jugar, reír, comer dulces y perdernos por la ciudad: mi plan perfecto lleva tu nombre.",
+      fotos: [["097.jpg","golosa"],["110.jpg","postal"],["116.jpg","¡pixel game!"],["123.jpg","tu risa"]] },
 
     { titulo: "Sol, playa y tú", fecha: "25 oct · 2 nov",
       frase: "Contigo hasta el invierno parece verano.",
@@ -328,6 +330,9 @@ const CONFIG = {
       texto: "Sin coste y sin peros: un día entero en el que tú eliges el plan, la peli, la comida y la música. Yo solo digo que sí… y sonrío." },
     { emoji: "🎬", titulo: "Noche de peli y mantita con sus snacks favoritos",
       texto: "Tú eliges la peli, yo preparo la mantita y tus snacks favoritos. Sofá, abrazos y nada más que hacer en toda la noche." },
+    { emoji: "📱", titulo: "Una app para nuestros gastos, hecha por mí",
+      texto: "La he hecho yo para ti y para mí: apuntamos lo que gastamos cada día, vemos lo compartido y quién le debe a quién. Ábrela en el móvil y añádela a la pantalla de inicio.",
+      link: { url: "https://priyank231.github.io/gastos-app/", texto: "Abrir la app 💸" } },
   ],
   fraseFinal: "Que nunca nos falten motivos para sonreír. Te quiero ♥",
 };
@@ -409,7 +414,7 @@ document.getElementById("gifts").innerHTML = CONFIG.regalos.map((g,i) => `
   <div class="gift reveal" onclick="openGift(this,event)">
     <div class="box"><div class="bow">🎀</div><div class="lid"></div><div class="base"></div></div>
     <div class="label">${single ? "Para ti" : "Regalo " + (i+1)}</div>
-    <div class="content"><div class="card"><div class="emoji">${g.emoji}</div><h3>${esc(g.titulo)}</h3><p>${esc(g.texto)}</p></div></div>
+    <div class="content"><div class="card"><div class="emoji">${g.emoji}</div><h3>${esc(g.titulo)}</h3><p>${esc(g.texto)}</p>${g.link ? `<a class="glink" href="${esc(g.link.url)}" target="_blank" rel="noopener">${esc(g.link.texto)}</a>` : ""}</div></div>
   </div>`).join("");
 
 function openGift(el, e){
